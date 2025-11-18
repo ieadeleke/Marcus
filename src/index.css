@@ -1,0 +1,207 @@
+@import url(https://db.onlinewebfonts.com/c/0d49fc455f4a8951a42daf952412a713?family=Helvetica+Neue+Regular);
+@font-face {
+    font-family: "Helvetica Neue Regular";
+    src: url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.eot");
+    src: url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/0d49fc455f4a8951a42daf952412a713.svg#Helvetica Neue Regular")format("svg");
+}
+:root {
+
+  line-height: 1.5;
+  font-family: "Helvetica Neue Regular";
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+#root{
+   min-width: 100%;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: "Helvetica Neue Regular";
+  background-color: #f6f9fc;
+}
+
+.custom-button-contained {
+  background: linear-gradient(94.78deg, #fe6433 0%, #f03280 100%);
+  padding: 14 38 10 39;
+  border-radius: 6px;
+   color : currentColor;
+}
+.custom-button-contained:hover {
+  background: linear-gradient(94.78deg, #f03280 0%, #fe6433 100%);
+  padding: 14 38 10 39;
+  border-radius: 6px;
+   color : currentColor;
+}
+button p {
+  font-family: "Helvetica Neue Regular";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.custom-button-outlined {
+  padding: 14 38 10 39;
+  border-radius: 6px;
+  border: 1px solid currentColor !important;
+}
+.custom-button-outlined:hover {
+  padding: 14 38 10 39;
+  border-radius: 6px;
+  border: 1px solid #333333;
+}
+
+.custom-button-outlined p{
+  color : currentColor;
+}
+.custom-button-text p{
+  color : currentColor;
+}
+
+.custom-button-text {
+  
+  padding: 14 38 10 39;
+  border-radius: 6px;
+}
+.custom-button-text:hover {
+  
+  padding: 14 38 10 39;
+  border-radius: 6px;
+}
+
+p{
+  font-family: "Helvetica Neue Regular";
+}
+
+
+
+.myScrollBox::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the tracking area */
+}
+
+.myScrollBox::-webkit-scrollbar-thumb {
+  background-color: #888; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #f1f1f1; /* creates padding around scroll thumb */
+}
+
+/* Style applied when the scroll thumb is being hovered or clicked */
+.myScrollBox::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.myScrollBox {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #FF9D43 #f1f1f1; /* thumb and track color */
+  
+}
+
+
+
+
+@media print {
+	body {
+		margin: 0 !important;
+	}
+}
+
+.main-container {
+	--ckeditor5-preview-height: 700px;
+	font-family: 'Lato';
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-content {
+	font-family: 'Lato';
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+.editor-container__editor-wrapper {
+	display: flex;
+	width: fit-content;
+}
+
+.editor-container_document-editor {
+	border: 1px solid var(--ck-color-base-border);
+}
+
+.editor-container_document-editor .editor-container__toolbar {
+	display: flex;
+	position: relative;
+	box-shadow: 0 2px 3px hsla(0, 0%, 0%, 0.078);
+}
+
+.editor-container_document-editor .editor-container__toolbar > .ck.ck-toolbar {
+	flex-grow: 1;
+	width: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+.editor-container_document-editor .editor-container__menu-bar > .ck.ck-menu-bar {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+.editor-container_document-editor .editor-container__editor-wrapper {
+	max-height: var(--ckeditor5-preview-height);
+	min-height: var(--ckeditor5-preview-height);
+	overflow-y: scroll;
+	background: var(--ck-color-base-foreground);
+}
+
+.editor-container_document-editor .editor-container__editor {
+	margin-top: 28px;
+	margin-bottom: 28px;
+	height: 100%;
+}
+
+.editor-container_document-editor .editor-container__editor .ck.ck-editor__editable {
+	box-sizing: border-box;
+	min-width: calc(210mm + 2px);
+	max-width: calc(210mm + 2px);
+	min-height: 297mm;
+	height: fit-content;
+	padding: 20mm 12mm;
+	border: 1px hsl(0, 0%, 82.7%) solid;
+	background: hsl(0, 0%, 100%);
+	box-shadow: 0 2px 3px hsla(0, 0%, 0%, 0.078);
+	flex: 1 1 auto;
+	margin-left: 72px;
+	margin-right: 72px;
+}
