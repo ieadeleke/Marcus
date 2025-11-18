@@ -6,6 +6,7 @@ const uiStartLoading = () => ({ type: 'ui/startLoading' });
 const uiStopLoading = () => ({ type: 'ui/stopLoading' });
 
 let baseURL = "";
+
 try {
   const envBase = import.meta.env?.VITE_API_URL;
   if (envBase) {
