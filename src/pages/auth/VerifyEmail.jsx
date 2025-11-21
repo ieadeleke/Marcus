@@ -16,6 +16,7 @@ import { setUser } from "../../redux/UserReducer";
 
 export default function VerificationEmail() {
   const user = useSelector((state) => state.user.details);
+  const [resending, setResending] = useState(false);
   const initialValues = {
     pin1: "",
     pin2: "",
@@ -81,7 +82,8 @@ export default function VerificationEmail() {
       .post(`/api/auth/email/verify/${user?.email}`, { pin }) // Ensure you're sending a JSON object.
       .then((response) => {
         dispatch(setUser(response.data.user));
-        navigate("/verification/email/verified");
+        const emailParam = encodeURIComponent(response.data.user?.email || user?.email || "");
+        navigate(`/verification/${emailParam}/verified`);
       })
       .catch((err) => {
         notify(
@@ -93,6 +95,18 @@ export default function VerificationEmail() {
       .finally(() => {
         actions.setSubmitting(false);
       });
+  };
+
+  const handleResendMail = async () => {
+    try {
+      setResending(true);
+      await axios.get(`/api/auth/email/resend/${user.email}`);
+      notify("Verification email resent", "success");
+    } catch (err) {
+      notify(err.response?.data?.error || "Failed to resend email", "error");
+    } finally {
+      setResending(false);
+    }
   };
   return (
     <Box display="flex" justifyContent="center" mt={10}>
@@ -180,7 +194,7 @@ export default function VerificationEmail() {
               background="linear-gradient(180deg, #FF8934 0%, #FF3CD4 100%)"
               fs="14px"
               fw="700"
-              onClick={() => {}}
+              onClick={handleResendMail}
               sx={{
                 textAlign: "center",
                 marginLeft: 1,
@@ -188,7 +202,7 @@ export default function VerificationEmail() {
                 cursor: "pointer",
               }}
             >
-              Click to resend
+              {resending ? "Resending..." : "Click to resend"}
             </Text>
           </Box>
           <Button

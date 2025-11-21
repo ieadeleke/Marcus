@@ -8,18 +8,23 @@ import { ArrowBack } from "@mui/icons-material";
 import MailIcon from "../../../components/svgs/MailIcon";
 import { useSelector } from "react-redux";
 import axios from "../../../api/axios";
+import { notify } from "../../../utils/Index";
 
 export default function VerificationLink() {
   const [sendMailBtn, setSendMailBtn] = useState(false);
   const user = useSelector(state => state.user.details)
 
 
-  const handleResendMail = () =>{
-    setSendMailBtn(true);
-
-    axios.get(`/api/auth/email/resend/${user.email}`).then(() => {
+  const handleResendMail = async () =>{
+    try {
+      setSendMailBtn(true);
+      await axios.get(`/api/auth/email/resend/${user.email}`);
+      notify("Verification email resent", "success");
+    } catch (err) {
+      notify(err.response?.data?.error || "Failed to resend email", "error");
+    } finally {
       setSendMailBtn(false);
-    })
+    }
   }
 
 
@@ -36,7 +41,7 @@ export default function VerificationLink() {
             We sent averification link to {user.email}
           </Text>
           <Button
-            to="/verification/email"
+            to={`/verification/${encodeURIComponent(user?.email || "")}`}
             width="100%"
             heigh="44px"
             type="submit"

@@ -1,16 +1,33 @@
 import { Box, Stack } from "@mui/material";
-import LockIcon from "../../../components/svgs/LockIcon";
 import Text from "../../../components/Text";
-import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { useState } from "react";
 import { ArrowBack } from "@mui/icons-material";
 import MailIcon from "../../../components/svgs/MailIcon";
+import { useParams } from "react-router-dom";
+import axios from "../../../api/axios";
+import { notify } from "../../../utils/Index";
 
 export default function MailSent() {
   const [sendMailBtn, setSendMailBtn] = useState(false);
+  const { email: emailParam } = useParams();
+  const email = decodeURIComponent(emailParam || "");
+
+  const handleResend = async () => {
+    if (!email) return;
+    setSendMailBtn(true);
+    try {
+      await axios.post(`/api/auth/password/request-reset`, { email });
+      notify("Password reset email resent", "success");
+    } catch (err) {
+      notify(err.response?.data?.error || "Failed to resend email", "error");
+    } finally {
+      setSendMailBtn(false);
+    }
+  };
+
   return (
-    <Box display="flex" justifyContent="center" component="form" mt={10}>
+    <Box display="flex" justifyContent="center" mt={10}>
       <Box sx={{ mx: "auto" }} width={{ xs: "343px", sm: "360px" }}>
         <Stack spacing={3} justifyContent="center" alignItems="center">
           <MailIcon />
@@ -18,15 +35,20 @@ export default function MailSent() {
           <Text fw="550" fs="30px" color="#131C30">
             Check your email
           </Text>
-          <Text fw="400" fs="16px" color="#475467">
-            We sent a password reset link to Paul@example-email.com
+          <Text fw="400" fs="16px" color="#475467" sx={{ textAlign: "center" }}>
+            We sent a password reset link to {email || "your email"}
           </Text>
           <Button
-            loading={sendMailBtn}
+            loading={false}
             width="100%"
             heigh="44px"
-            type="submit"
+            type="button"
             variant="contained"
+            onClick={() => {
+              if (email) {
+                window.location.href = `mailto:${email}`;
+              }
+            }}
           >
             Open email app
           </Button>
@@ -43,7 +65,7 @@ export default function MailSent() {
               background="linear-gradient(180deg, #FF8934 0%, #FF3CD4 100%)"
               fs="14px"
               fw="700"
-              onClick={() => {}}
+              onClick={handleResend}
               sx={{
                 textAlign: "center",
                 marginLeft: 1,
@@ -51,7 +73,7 @@ export default function MailSent() {
                 cursor: "pointer",
               }}
             >
-              Click to resend
+              {sendMailBtn ? "Resending..." : "Click to resend"}
             </Text>
           </Box>
           <Button
@@ -60,6 +82,7 @@ export default function MailSent() {
             heigh="44px"
             type="button"
             startIcon={<ArrowBack />}
+            to="/login"
           >
             Back to log in
           </Button>
