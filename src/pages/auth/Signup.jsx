@@ -54,7 +54,8 @@ export default function Signup() {
       .then((response) => {
         console.log(response.data.user);
         dispatch(setUser(response.data.user));
-        navigate("/verification/link/email");
+        const emailParam = encodeURIComponent(response.data.user?.email || values.email);
+        navigate(`/verification/link/${emailParam}`);
         // navigate("/dashboard");
       })
       .catch((error) => {

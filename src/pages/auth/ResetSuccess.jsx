@@ -8,9 +8,28 @@ import { ArrowBack } from "@mui/icons-material";
 
 import CheckSuccessIcon from "../../components/svgs/CheckSuccessIcon";
 import Text from "../../components/Text";
+import axios from "../../api/axios";
+import { notify } from "../../utils/Index";
+import { useParams } from "react-router-dom";
 
 export default function ResetSuccess() {
   const [sendMailBtn, setSendMailBtn] = useState(false);
+  const [resending, setResending] = useState(false);
+  const { email: emailParam } = useParams();
+  const email = decodeURIComponent(emailParam || "");
+
+  const handleResend = async () => {
+    if (!email) return;
+    try {
+      setResending(true);
+      await axios.post(`/api/auth/password/request-reset`, { email });
+      notify("Password reset email resent", "success");
+    } catch (err) {
+      notify(err.response?.data?.error || "Failed to resend email", "error");
+    } finally {
+      setResending(false);
+    }
+  };
   return (
     <Box display="flex" justifyContent="center" component="form" mt={10}>
       <Box sx={{ mx: "auto" }} width={{ xs: "343px", sm: "360px" }}>
@@ -27,7 +46,8 @@ export default function ResetSuccess() {
             loading={sendMailBtn}
             width="100%"
             heigh="44px"
-            type="submit"
+            type="button"
+            to="/login"
             variant="contained"
           >
             Continue
@@ -45,7 +65,7 @@ export default function ResetSuccess() {
               background="linear-gradient(180deg, #FF8934 0%, #FF3CD4 100%)"
               fs="14px"
               fw="700"
-              onClick={() => {}}
+              onClick={handleResend}
               sx={{
                 textAlign: "center",
                 marginLeft: 1,
@@ -53,7 +73,7 @@ export default function ResetSuccess() {
                 cursor: "pointer",
               }}
             >
-              Click to resend
+              {resending ? "Resending..." : "Click to resend"}
             </Text>
           </Box>
           <Button
